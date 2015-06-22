@@ -5,17 +5,17 @@ var Counter = Backbone.Model.extend({
 var CounterView = Backbone.View.extend({
 	render: function(){
 		var val = this.model.get("value");//place for the entered text to be displayed
-		var concat_form = '<form><textarea></textarea></form>'//input text field
+		var concat_input = '<input class="string_input"></input>'//input text field
 		var concat = '<button class="concat">concatenate</button>'; //button labeled concatenate
-		this.$el.html('<p>' + concat_form + '</p>' + concat + val);
+		this.$el.html('<p>' + val + '</p>' + concat_input + concat);
 		// this.$el.html('<p>test</p>');
 
 	}
 });
-
+var counterModel, counterView;
 $(document).ready(function(){
-	var counterModel = new Counter();
-	var counterView = new CounterView({model: counterModel});
+	counterModel = new Counter();
+	counterView = new CounterView({model: counterModel});
 	counterView.render();
 
 	counterModel.on("change", function(){
@@ -25,7 +25,9 @@ $(document).ready(function(){
 	counterView.$el.on("click", ".concat", function(){
 		var mod = counterView.model;
 		var currVal = mod.get("value");
-		// mod.set("value,", currVal+)
+		var input_text = $('.string_input')[0].value;
+		console.log(input_text);
+		mod.set("value", currVal + input_text);
 	})
 
 $("#concatdiv").append(counterView.$el);
