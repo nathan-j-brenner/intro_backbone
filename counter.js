@@ -34,7 +34,9 @@ counterView.$el.on("click",".add", function () {
 counterView.$el.on("click",".subtract", function () {
     var mod = counterView.model;
     var currVal = mod.get("value");
-    mod.set("value",currVal-1);
+    if(counterModel.attributes.value !== 0){
+    	mod.set("value",currVal-1);
+	}
 });
 
 $("#counterdiv").append(counterView.$el);
