@@ -90,3 +90,8 @@ $("#listdiv").append(textCollectionView.$el);
 });
 
 //edited count
+//add a new piece of data to the base model: number of times that it's been edited
+    //every time the field is edited, then the base model should increment
+    //edit: clear or pressed enter
+//modify the view of base model
+//need to modify view of collection?
