@@ -75,9 +75,7 @@ var TextCollectionView = Backbone.View.extend({
         this.$("#text-list").append(view.$el);
     },
     deleteView : function(lastModel){
-        this.viewArray.pop();
-        this.$('div:last-child').remove();
-        this.$('div:last-child').remove();
+        this.viewArray.pop().remove();
     },
 });
 
@@ -90,3 +88,5 @@ textCollectionView.render();
 $("#listdiv").append(textCollectionView.$el);
 
 });
+
+//edited count
