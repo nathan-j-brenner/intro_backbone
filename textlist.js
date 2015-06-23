@@ -72,12 +72,10 @@ var TextCollectionView = Backbone.View.extend({
         var view = new TextView({model : newModel});
         view.render();
         this.viewArray.push(view);
-        console.log(this.viewArray);
         this.$("#text-list").append(view.$el);
     },
     deleteView : function(lastModel){
         this.viewArray.pop();
-        console.log(this.viewArray);
         this.$('div:last-child').remove();
         this.$('div:last-child').remove();
     },
