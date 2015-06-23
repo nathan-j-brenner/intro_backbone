@@ -4,7 +4,7 @@ var TextModel = Backbone.Model.extend({
     defaults : {"value" : ""},
     replace : function (str) {
       this.set("value", str);
-    }
+    },
 });
 
 var TextView = Backbone.View.extend({
@@ -42,6 +42,7 @@ var TextCollection = Backbone.Collection.extend({
 });
 
 var TextCollectionView = Backbone.View.extend({
+    // var viewArray = [],
     render : function () {
         //add a delete button to the view of the collection
         var btn = '<button id="addbutton">Add Text</button>';
@@ -51,21 +52,35 @@ var TextCollectionView = Backbone.View.extend({
     },
     initialize : function () {
         this.listenTo(this.collection, 'add', this.addView);
+        //add an event handler that listens for the 'remove' event for the collection and refreshes the list
+        this.listenTo(this.collection, 'delete', this.deleteView);
+        this.viewArray = [];
     },
     events : {
-        "click #addbutton" : "addModel"
+        "click #addbutton" : "addModel",
+        "click #del_btn" : "deleteView"
     },
     addModel : function () {
         this.collection.add({});
         // collection adds a model, fires add event, then listener calls this.addView(model)
     },
+    deleteModel: function(){
+        this.collection.delete({});
+    },
     addView : function (newModel) {
         newModel.set("value","Enter something here...");
         var view = new TextView({model : newModel});
         view.render();
+        this.viewArray.push(view);
+        console.log(this.viewArray);
         this.$("#text-list").append(view.$el);
     },
-
+    deleteView : function(lastModel){
+        this.viewArray.pop();
+        console.log(this.viewArray);
+        this.$('div:last-child').remove();
+        this.$('div:last-child').remove();
+    },
 });
 
 var textCollection = new TextCollection();
@@ -77,9 +92,3 @@ textCollectionView.render();
 $("#listdiv").append(textCollectionView.$el);
 
 });
-
-//Delete Button: erase the bottom element of the list of elements
-//add a delete button to the view of the collection
-//add an event handler that listens for the 'remove' event for the collection and refreshes the list
-//  -removes the cooresponding view from the dom
-//  -css pseudo-selectors- select only the last div in the collection
